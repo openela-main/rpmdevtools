@@ -1,0 +1,21 @@
+diff -up rpmdevtools-8.10/Makefile.am.no_qa_robot rpmdevtools-8.10/Makefile.am
+--- rpmdevtools-8.10/Makefile.am.no_qa_robot	2018-08-13 22:12:57.934054857 +0200
++++ rpmdevtools-8.10/Makefile.am	2018-08-13 22:14:08.029532966 +0200
+@@ -1,4 +1,4 @@
+-SUBDIRS = emacs qa-robot
++SUBDIRS = emacs
+ 
+ pkgsysconfdir = $(sysconfdir)/rpmdevtools
+ bashcompdir = @bashcompdir@
+diff -up rpmdevtools-8.10/Makefile.in.no_qa_robot rpmdevtools-8.10/Makefile.in
+--- rpmdevtools-8.10/Makefile.in.no_qa_robot	2018-08-13 22:12:57.934054857 +0200
++++ rpmdevtools-8.10/Makefile.in	2018-08-13 22:13:44.650040573 +0200
+@@ -316,7 +316,7 @@ target_alias = @target_alias@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = emacs qa-robot
++SUBDIRS = emacs
+ pkgsysconfdir = $(sysconfdir)/rpmdevtools
+ bin_SCRIPTS = rpmdev-newinit rpmdev-newspec rpmdev-rmdevelrpms spectool
+ dist_bin_SCRIPTS = rpmdev-checksig rpmdev-diff rpmdev-extract rpmdev-md5 \
