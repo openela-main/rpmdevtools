@@ -1,0 +1,34 @@
+commit 26a8abc746fba9c0b32eb899b96c92841a37855a
+Author: Michal Domonkos <mdomonko@redhat.com>
+Date:   Thu Mar 26 17:00:46 2020 +0100
+
+    spectool: ignore query string in URL. BZ 1337544
+    
+    When constructing the target filename from the given Source or Patch URL
+    (sub retrieve), do not include the query string (if present).
+    
+    Example:
+    * Before: http://some.url/foo.tgz?arg=123 => ./foo.tgz?arg=123
+    * After:  http://some.url/foo.tgz?arg=123 => ./foo.tgz
+    
+    Regex explanation:
+    * 1st group: ([^\/]+?)
+        * Lazily matches one or more characters that are not a forward slash
+    * 2nd group: (?:\?.*)?$
+        * Matches a query string (if any) starting with a question mark,
+          followed by zero or more characters until the end of string,
+          without creating a capturing group (the leading ?:)
+
+diff --git a/spectool.in b/spectool.in
+index 6f7499c..0ebf401 100644
+--- a/spectool.in
++++ b/spectool.in
+@@ -198,7 +198,7 @@ sub retrievable {
+ sub retrieve {
+ 	my ($where, $url) = @_;
+ 	if (retrievable ($url)) {
+-		my $path = File::Spec->catfile($where, $url =~ m|([^/]+)$|);
++		my $path = File::Spec->catfile($where, $url =~ m|([^\/]+?)(?:\?.*)?$|);
+ 		print "Getting $url to $path\n";
+ 		if (-e $path) {
+ 			if ($force) {
